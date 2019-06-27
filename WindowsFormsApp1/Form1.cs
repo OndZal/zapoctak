@@ -31,10 +31,10 @@ namespace WindowsFormsApp1
             test.turnTable[0, 1] = Turns.Left;
             test.turnTable[1, 0] = Turns.Right;
             test.turnTable[1, 1] = Turns.Right;
-            test.stepTable[0, 0] = 1;
-            test.stepTable[0, 1] = 2;
-            test.stepTable[1, 0] = 2;
-            test.stepTable[1, 1] = 1;
+            test.stepTable[0, 0] = 5;
+            test.stepTable[0, 1] = 10;
+            test.stepTable[1, 0] = 10;
+            test.stepTable[1, 1] = 5;
             test.colorTable[0, 0] = 1;
             test.colorTable[0, 1] = 0;
             test.colorTable[1, 0] = 0;
