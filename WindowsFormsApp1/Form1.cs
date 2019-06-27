@@ -56,7 +56,7 @@ namespace WindowsFormsApp1
             }
         }
     }
-    public enum Turns { Left = -1, None, Right }
+    public enum Turns { Left, None, Right }
     public enum Directions { Up, Right, Down, Left }
     public class Turmite
     {
@@ -71,6 +71,26 @@ namespace WindowsFormsApp1
         public Turns[,] turnTable;
         public Color[] colors;
         protected Bitmap map;
+        protected void Turn(Turns turnDirection)
+        {
+            int turnNumber;
+            switch (turnDirection)
+            {
+                case Turns.Left:
+                    turnNumber = 3;
+                    break;
+                case Turns.None:
+                    turnNumber = 0;
+                    break;
+                case Turns.Right:
+                    turnNumber = 1;
+                    break;
+                default:
+                    turnNumber = 0;
+                    break;
+            }
+            orientation = (Directions)(((int)orientation + turnNumber) % 4);
+        }
         public Turmite(int stateCount, int colorCount, Bitmap bitmap)
         {
             stateTable = new int[stateCount, colorCount];
@@ -94,11 +114,7 @@ namespace WindowsFormsApp1
             }
             if (colorIndex == colors.Length)
                 throw new Exception();
-            orientation = (Directions)(((int)orientation + (int)turnTable[state, colorIndex]) % 4); // tenhle vypocet potrebuje zkraslit
-            if ((int)orientation == -1) 
-            {
-                orientation = Directions.Left;
-            }
+            Turn(turnTable[state, colorIndex]);
             map.SetPixel(x, y, colors[colorTable[state, colorIndex]]);
             for (int i = 0; i < stepTable[state, colorIndex]; i++)
             {
