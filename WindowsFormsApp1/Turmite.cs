@@ -20,15 +20,14 @@ namespace WindowsFormsApp1
         public int[,] colorTable;
         public Directions orientation;
         public Turns[,] turnTable;
-        public Color[] colors;
-        protected Bitmap map;
+        protected TurmiteController controller;
         protected void Turn(Turns turnDirection)
         {
             int turnNumber;
             switch (turnDirection)
             {
                 case Turns.Left:
-                    turnNumber = 3;
+                    turnNumber = 3; // v mod 4 se 3 chova, jak by se melo chovat -1, ale spolehliveji
                     break;
                 case Turns.None:
                     turnNumber = 0;
@@ -42,48 +41,36 @@ namespace WindowsFormsApp1
             }
             orientation = (Directions)(((int)orientation + turnNumber) % 4);
         }
-        public Turmite(int stateCount, int colorCount, Bitmap bitmap)
+        public Turmite(int stateCount, int colorCount, TurmiteController control)
         {
             stateTable = new int[stateCount, colorCount];
             stepTable = new int[stateCount, colorCount];
             colorTable = new int[stateCount, colorCount];
             turnTable = new Turns[stateCount, colorCount];
-            colors = new Color[colorCount];
-            map = bitmap;
+            controller = control;
         }
         public void Step()
         {
-            Color currentColor = map.GetPixel(x, y);
-            int colorIndex = colors.Length;
-            for (int i = 0; i < colors.Length; i++)
-            {
-                if (currentColor.ToArgb() == colors[i].ToArgb())
-                {
-                    colorIndex = i;
-                    break;
-                }
-            }
-            if (colorIndex == colors.Length)
-                throw new Exception();
+            int colorIndex = controller.Colors.IndexOf(controller.bitmap.GetPixel(x, y));
             Turn(turnTable[state, colorIndex]);
-            map.SetPixel(x, y, colors[colorTable[state, colorIndex]]);
+            controller.bitmap.SetPixel(x, y, controller.Colors[colorTable[state, colorIndex]]);
             for (int i = 0; i < stepTable[state, colorIndex]; i++)
             {
                 x += x_movement[(int)orientation];
                 if (x == -1)
                 {
-                    x = map.Width - 1;
+                    x = controller.bitmap.Width - 1;
                 }
-                if (x == map.Width)
+                if (x == controller.bitmap.Width)
                 {
                     x = 0;
                 }
                 y += y_movement[(int)orientation];
                 if (y == -1)
                 {
-                    y = map.Height - 1;
+                    y = controller.bitmap.Height - 1;
                 }
-                if (y == map.Height)
+                if (y == controller.bitmap.Height)
                 {
                     y = 0;
                 }
