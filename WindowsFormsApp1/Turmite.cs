@@ -41,13 +41,12 @@ namespace WindowsFormsApp1
             }
             orientation = (Directions)(((int)orientation + turnNumber) % 4);
         }
-        public Turmite(int stateCount, int colorCount, TurmiteController control)
+        public Turmite(int stateCount, int colorCount)
         {
             stateTable = new int[stateCount, colorCount];
             stepTable = new int[stateCount, colorCount];
             colorTable = new int[stateCount, colorCount];
             turnTable = new Turns[stateCount, colorCount];
-            controller = control;
         }
         public void Step()
         {
