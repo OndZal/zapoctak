@@ -1,0 +1,5 @@
+		---	First two lines are numbers of colors and states, respectively, each on its own lines ---
+<number of colors>
+<number of states>
+		---	Then follows <number of colors> x <number of states> lines, one for each color-state combination, in the following format ---
+<current state>,<current color>=<new state>,<new color>,<number of steps>,<turn(0=left,1=none,2=right)>
