@@ -16,5 +16,51 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
         }
+        protected TurmiteController Turmites;
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            Graphics g = Graphics.FromImage(pictureBox1.Image);
+            g.Clear(Color.Black);
+            Turmites = new TurmiteController((Bitmap)pictureBox1.Image);
+            Turmites.Colors.Add(Color.FromArgb(255,0,0,0));
+            Turmites.Colors.Add(Color.FromArgb(255, 255, 255, 255));
+            Turmites.Colors.Add(Color.FromArgb(255, 255, 255, 0));
+            Turmites.Colors.Add(Color.FromArgb(255, 00, 0, 255));
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            AddForm addDialog = new AddForm();
+            addDialog.ShowDialog();
+            if (addDialog.DialogResult == DialogResult.OK)
+            {
+                addDialog.toAdd.controller = Turmites;
+                addDialog.toAdd.x = pictureBox1.Image.Width / 2;
+                addDialog.toAdd.y = pictureBox1.Image.Height / 2;
+                Turmites.Turmites.Add(addDialog.toAdd);
+            }
+            addDialog.Dispose();
+        }
+        bool paused = true;
+        private void playButton_Click(object sender, EventArgs e)
+        {
+            if (Turmites.Turmites.Count != 0)
+                paused = false;
+        }
+
+        private void pauseButton_Click(object sender, EventArgs e)
+        {
+            paused = true;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (!paused)
+            {
+                Turmites.NextStep();
+                pictureBox1.Refresh();
+            }
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace WindowsFormsApp1
         public int[,] colorTable;
         public Directions orientation;
         public Turns[,] turnTable;
-        protected TurmiteController controller;
+        public TurmiteController controller;
         protected void Turn(Turns turnDirection)
         {
             int turnNumber;
