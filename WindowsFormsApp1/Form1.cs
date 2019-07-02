@@ -24,11 +24,12 @@ namespace WindowsFormsApp1
             g.Clear(Color.Black);
             Turmites = new TurmiteController((Bitmap)pictureBox1.Image);
             Turmites.Colors.Add(Color.FromArgb(255,0,0,0));
-            Turmites.Colors.Add(Color.FromArgb(255, 255, 255, 255));
+            Turmites.Colors.Add(Color.FromArgb(255, 255, 0, 0));
         }
 
         private void addButton_Click(object sender, EventArgs e)
         {
+            paused = true;
             AddForm addDialog = new AddForm();
             addDialog.ShowDialog();
             if (addDialog.DialogResult == DialogResult.OK)
@@ -79,13 +80,20 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void clearButton_Click(object sender, EventArgs e)
+        protected void ClearBoard()
         {
+            pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            Turmites.bitmap = (Bitmap)pictureBox1.Image;
             Graphics g = Graphics.FromImage(pictureBox1.Image);
             paused = true;
             g.Clear(Turmites.Colors[0]);
             Turmites.Turmites.Clear();
             pictureBox1.Refresh();
+        }
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            ClearBoard();
         }
 
         private void toolStripTextBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -111,6 +119,16 @@ namespace WindowsFormsApp1
                     Turmites.NextStep();
                     pictureBox1.Refresh();
                 }
+            }
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            paused = true;
+            var settings = new SettingsForm(Turmites.Colors);
+            if (settings.ShowDialog() == DialogResult.OK)
+            {
+                ClearBoard();
             }
         }
     }
