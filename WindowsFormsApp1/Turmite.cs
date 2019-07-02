@@ -56,20 +56,20 @@ namespace WindowsFormsApp1
             for (int i = 0; i < stepTable[state, colorIndex]; i++)
             {
                 x += x_movement[(int)orientation];
-                if (x == -1)
+                if (x < 0)
                 {
                     x = controller.bitmap.Width - 1;
                 }
-                if (x == controller.bitmap.Width)
+                if (x >= controller.bitmap.Width)
                 {
                     x = 0;
                 }
                 y += y_movement[(int)orientation];
-                if (y == -1)
+                if (y < 0)
                 {
                     y = controller.bitmap.Height - 1;
                 }
-                if (y == controller.bitmap.Height)
+                if (y >= controller.bitmap.Height)
                 {
                     y = 0;
                 }
