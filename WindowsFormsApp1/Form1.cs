@@ -33,10 +33,22 @@ namespace WindowsFormsApp1
             addDialog.ShowDialog();
             if (addDialog.DialogResult == DialogResult.OK)
             {
-                addDialog.toAdd.controller = Turmites;
-                addDialog.toAdd.x = pictureBox1.Image.Width / 2;
-                addDialog.toAdd.y = pictureBox1.Image.Height / 2;
-                Turmites.Turmites.Add(addDialog.toAdd);
+                if (addDialog.toAdd.stateTable.GetUpperBound(1) + 1 > Turmites.Colors.Count)
+                {
+                    MessageBox.Show("Not enough colors defined for selected turmite.");
+                }
+                else
+                if (addDialog.toAdd.stateTable.GetUpperBound(1) + 1 < Turmites.Colors.Count)
+                {
+                    MessageBox.Show("Selected turmite is unable to handle all defined colors.");
+                }
+                else
+                {
+                    addDialog.toAdd.controller = Turmites;
+                    addDialog.toAdd.x = pictureBox1.Image.Width / 2;
+                    addDialog.toAdd.y = pictureBox1.Image.Height / 2;
+                    Turmites.Turmites.Add(addDialog.toAdd);
+                }
             }
             addDialog.Dispose();
         }
