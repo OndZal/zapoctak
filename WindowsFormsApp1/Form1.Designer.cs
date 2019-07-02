@@ -37,6 +37,9 @@
             this.clearButton = new System.Windows.Forms.ToolStripButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.settingsButton = new System.Windows.Forms.ToolStripButton();
+            this.stepButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -48,7 +51,10 @@
             this.pauseButton,
             this.playButton,
             this.addButton,
-            this.clearButton});
+            this.clearButton,
+            this.settingsButton,
+            this.toolStripTextBox1,
+            this.stepButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
@@ -93,11 +99,13 @@
             // 
             this.clearButton.BackColor = System.Drawing.Color.Gray;
             this.clearButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.clearButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.clearButton.Image = ((System.Drawing.Image)(resources.GetObject("clearButton.Image")));
             this.clearButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(38, 22);
             this.clearButton.Text = "Clear";
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
             // 
             // pictureBox1
             // 
@@ -115,6 +123,40 @@
             this.timer1.Enabled = true;
             this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // settingsButton
+            // 
+            this.settingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.settingsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.settingsButton.ForeColor = System.Drawing.Color.White;
+            this.settingsButton.Image = ((System.Drawing.Image)(resources.GetObject("settingsButton.Image")));
+            this.settingsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(53, 22);
+            this.settingsButton.Text = "Settings";
+            // 
+            // stepButton
+            // 
+            this.stepButton.BackColor = System.Drawing.Color.Black;
+            this.stepButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.stepButton.ForeColor = System.Drawing.Color.White;
+            this.stepButton.Image = ((System.Drawing.Image)(resources.GetObject("stepButton.Image")));
+            this.stepButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.stepButton.Name = "stepButton";
+            this.stepButton.Size = new System.Drawing.Size(39, 22);
+            this.stepButton.Text = "Steps";
+            this.stepButton.Click += new System.EventHandler(this.stepButton_Click);
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.AutoSize = false;
+            this.toolStripTextBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
+            this.toolStripTextBox1.MaxLength = 10;
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.Size = new System.Drawing.Size(40, 25);
+            this.toolStripTextBox1.Text = "100";
+            this.toolStripTextBox1.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolStripTextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox1_KeyPress);
             // 
             // Form1
             // 
@@ -143,6 +185,9 @@
         private System.Windows.Forms.ToolStripButton addButton;
         private System.Windows.Forms.ToolStripButton clearButton;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripButton settingsButton;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
+        private System.Windows.Forms.ToolStripButton stepButton;
     }
 }
 

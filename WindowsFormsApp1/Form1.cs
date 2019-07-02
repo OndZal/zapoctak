@@ -87,5 +87,31 @@ namespace WindowsFormsApp1
             Turmites.Turmites.Clear();
             pictureBox1.Refresh();
         }
+
+        private void toolStripTextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void stepButton_Click(object sender, EventArgs e)
+        {
+            int input;
+            if (!int.TryParse(toolStripTextBox1.Text, out input))
+            {
+                MessageBox.Show("NaN, m8");
+                toolStripTextBox1.Text = "100";
+            }
+            else
+            {
+                for (int i = 0; i < input; i++)
+                {
+                    Turmites.NextStep();
+                    pictureBox1.Refresh();
+                }
+            }
+        }
     }
 }
