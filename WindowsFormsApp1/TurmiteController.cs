@@ -21,8 +21,11 @@ namespace WindowsFormsApp1
         }
         public void NextStep()
         {
-            Turmites[iterator].Step();
-            iterator = (iterator + 1) % Turmites.Count;
+            if (Turmites.Count > 0)
+            {
+                Turmites[iterator].Step();
+                iterator = (iterator + 1) % Turmites.Count;
+            }
         }
     }
 }
