@@ -10,10 +10,16 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
+    // a form for choosing colors the turmites will operate on
     public partial class SettingsForm : Form
     {
+        // the colors the user has defined
         public List<Color> Colors;
+        
+        // the buttons that visually represent the colors and their indices in the list
         protected List<IndexedButton> colorButtons = new List<IndexedButton>();
+        
+        // The form initializes itself according to xisting settings.
         public SettingsForm(List<Color> colors)
         {
             InitializeComponent();
@@ -26,6 +32,8 @@ namespace WindowsFormsApp1
                 newButton.Click += new EventHandler(this.ColorPick_Click);
             }
         }
+
+        // handler for "Click" event of a dynamically generated indexedButton; Shows a color picking dialog and updates its' color to the color picked.
         public void ColorPick_Click(object sender, EventArgs e)
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
@@ -39,18 +47,21 @@ namespace WindowsFormsApp1
             DialogResult = DialogResult.Cancel;
             Close();
         }
-
+        
+        // Saves the setting and signals for the board to be cleared because it potentially contains colors that are no longer valid.
         private void clearButton_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
             Colors.Clear();
             foreach (var item in colorButtons)
             {
+                // This standardizes colors, so that it matches the format that the bitmap returns
                 Colors.Insert(item.index, Color.FromArgb(item.BackColor.ToArgb()));
             }
             Close();
         }
 
+        // Lets user pick a color and adds an indexedButton to hold the color.
         private void addButton_Click(object sender, EventArgs e)
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
@@ -62,6 +73,7 @@ namespace WindowsFormsApp1
             }
         }
 
+        // Removes the last button and thus its' assigned color
         private void removeButton_Click(object sender, EventArgs e)
         {
             if (colorButtons.Count > 2)

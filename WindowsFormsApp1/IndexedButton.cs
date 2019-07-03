@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
+    // a button for dynamically generating and editing a list of colors; Holds an index that its associated color will be at in the list.
     public class IndexedButton :  System.Windows.Forms.Button
     {
         public int index;

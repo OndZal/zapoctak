@@ -176,7 +176,7 @@
             this.generateTableButton.Name = "generateTableButton";
             this.generateTableButton.Size = new System.Drawing.Size(52, 23);
             this.generateTableButton.TabIndex = 22;
-            this.generateTableButton.Text = "Accept";
+            this.generateTableButton.Text = "Reset";
             this.generateTableButton.UseVisualStyleBackColor = true;
             this.generateTableButton.Click += new System.EventHandler(this.generateTableButton_Click);
             // 

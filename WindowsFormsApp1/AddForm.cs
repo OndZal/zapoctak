@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
+    // a form for creating, saving, editing and loading turmites
     public partial class AddForm : Form
     {
         public AddForm()
@@ -18,15 +19,21 @@ namespace WindowsFormsApp1
             InitializeComponent();
             saveFileDialog1.DefaultExt = ".TXT";
         }
+
+        // tables of controls which hold the data of the turmite to be added
         protected NumericUpDown[,] colorTable;
         protected NumericUpDown[,] stateTable;
         protected NumericUpDown[,] stepTable;
         protected ComboBox[,] turnTable;
         protected List<Label> generatedLabels = new List<Label>();
+
+        //the turmite that to be added in the main form
         public Turmite toAdd = null;
 
+        // Generates a table for a turmite according to numbers of colors and states.
         protected void generateTableControls()
         {
+            //clearing previously generated controls
             foreach(var item in generatedLabels)
             {
                 Controls.Remove(item);
@@ -63,10 +70,13 @@ namespace WindowsFormsApp1
             colorTable = new NumericUpDown[states, colors];
             stepTable = new NumericUpDown[states, colors];
             turnTable = new ComboBox[states, colors];
+            // for each situation (state-color combination) the turmite can encounter...
             for (int state = 0; state < states; state++)
             {
                 for (int color = 0; color < colors; color++)
                 {
+                    // a set of two labels representing given situation
+                    // a label for current state
                     Label label = new Label
                     {
                         Location = new Point(25, 94 + (state * colors + color) * 26),
@@ -79,6 +89,7 @@ namespace WindowsFormsApp1
                     Controls.Add(label);
                     generatedLabels.Add(label);
 
+                    // a label for current color
                     label = new Label
                     {
                         Location = new Point(73, 94 + (state * colors + color) * 26),
@@ -91,6 +102,7 @@ namespace WindowsFormsApp1
                     Controls.Add(label);
                     generatedLabels.Add(label);
 
+                    // a box for the state to be transitioned into
                     stateTable[state, color] = new NumericUpDown
                     {
                         Location = new System.Drawing.Point(127, 99 + (state * colors + color) * 26),
@@ -101,6 +113,7 @@ namespace WindowsFormsApp1
                     };
                     Controls.Add(stateTable[state, color]);
 
+                    // a box for the color to paint the tile(pixel)
                     colorTable[state, color] = new NumericUpDown
                     {
                         Location = new System.Drawing.Point(198, 99 + (state * colors + color) * 26),
@@ -111,6 +124,7 @@ namespace WindowsFormsApp1
                     };
                     Controls.Add(colorTable[state, color]);
 
+                    // a box for amount of steps to take
                     stepTable[state, color] = new NumericUpDown
                     {
                         Location = new System.Drawing.Point(280, 99 + (state * colors + color) * 26),
@@ -121,6 +135,7 @@ namespace WindowsFormsApp1
                     };
                     Controls.Add(stepTable[state, color]);
 
+                    // a box for the eventual tur to make
                     turnTable[state, color] = new ComboBox
                     {
                         DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList,
@@ -131,38 +146,47 @@ namespace WindowsFormsApp1
                         TabIndex = 17
                     };
                     turnTable[state, color].Items.AddRange(new object[] { "Left", "None", "Right" });
+                    // setting default chosen turn to 'None"
                     turnTable[state, color].SelectedIndex = 1;
                     Controls.Add(turnTable[state, color]);
                 }
             }
         }
-
+        
+        // Loads a saved turmite from a file
         private void LoadFile_Click(object sender, EventArgs e)
         {
+            // asking the user for a file through a standard dialog
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 StreamReader file = new StreamReader(openFileDialog1.FileName);
                 int colorCount = 0, stateCount = 0;
+                // a lot of int parsing, all unsuccessful parses have the same result
                 try
                 {
                     colorCount = int.Parse(file.ReadLine());
                     stateCount = int.Parse(file.ReadLine());
+                    //setting this triggers the ValueChanged event, which generates the proper controls for method to write in
                     stateCounter.Value = stateCount;
                     colorCounter.Value = colorCount;
                     while (!file.EndOfStream)
                     {
-                        string[] line = file.ReadLine().Split('='); // line format : <current state>,<current color>=<new state>,<new color>,<number of steps>,<turn(0=left,1=none,2=right)>
+                        // expected line format : <current state>,<current color>=<new state>,<new color>,<number of steps>,<turn(0=left,1=none,2=right)>
+                        string[] line = file.ReadLine().Split('=');
+                        if (line.Length != 2) throw new FormatException();
                         string[] indices = line[0].Split(',');
+                        if (indices.Length != 2) throw new FormatException();
                         int state = int.Parse(indices[0]);
                         int color = int.Parse(indices[1]);
                         string[] values = line[1].Split(',');
+                        if (values.Length != 4) throw new FormatException();
                         stateTable[state, color].Value = int.Parse(values[0]);
                         colorTable[state, color].Value = int.Parse(values[1]);
                         stepTable[state, color].Value = int.Parse(values[2]);
                         turnTable[state, color].SelectedIndex  = int.Parse(values[3]);
                     }
                 }
-                catch (Exception)
+                catch (FormatException)
                 {
                     MessageBox.Show("ERROR - Invalid File Format");
                     file.Close();
@@ -178,7 +202,8 @@ namespace WindowsFormsApp1
             DialogResult = DialogResult.Cancel;
             Close();
         }
-
+        
+        // Takes data from generated controls and initializes turmite
         private void OKButton_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
@@ -197,19 +222,22 @@ namespace WindowsFormsApp1
             toAdd.y = (int)ySetter.Value;
             Close();
         }
-
+        
+        // Generates a new table without changing its size
         private void generateTableButton_Click(object sender, EventArgs e)
         {
             generateTableControls();
         }
 
+        // A shared handlet for ValueChanged of both "Counter" controls; Generates a new table and disables creation and saving of nonsensical turmites
         private void Counter_ValueChanged(object sender, EventArgs e)
         {
             generateTableControls();
             saveButton.Enabled = stateCounter.Value != 0 && colorCounter.Value != 0;
             OKButton.Enabled = stateCounter.Value != 0 && colorCounter.Value != 0;
         }
-
+        
+        // Writes data from controls to a user selected file
         private void saveButton_Click(object sender, EventArgs e)
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)

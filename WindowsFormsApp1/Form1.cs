@@ -10,13 +10,18 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
+    // the main form in which the turmites are drawn
     public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
         }
+
+
         protected TurmiteController Turmites;
+
+        // Itializes board and sets some default values.
         private void Form1_Load(object sender, EventArgs e)
         {
             pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
@@ -27,6 +32,7 @@ namespace WindowsFormsApp1
             Turmites.Colors.Add(Color.FromArgb(255, 255, 255, 255));
         }
 
+        // Gets a turmite from an "Addform", checks whether it uses the same number of colors as is set and whether it is in the bounds of the board.
         private void addButton_Click(object sender, EventArgs e)
         {
             paused = true;
@@ -53,7 +59,9 @@ namespace WindowsFormsApp1
             }
             addDialog.Dispose();
         }
+
         bool paused = true;
+
         private void playButton_Click(object sender, EventArgs e)
         {
             if (Turmites.Turmites.Count != 0)
@@ -65,6 +73,7 @@ namespace WindowsFormsApp1
             paused = true;
         }
 
+        // Does 50 steps and 5 board redraws a millisecond, making the drawing reasonably fast.
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (!paused)
@@ -80,6 +89,7 @@ namespace WindowsFormsApp1
             }
         }
 
+        // Resets the board to color 0 and removes all turmites.
         protected void ClearBoard()
         {
             pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
@@ -95,7 +105,8 @@ namespace WindowsFormsApp1
         {
             ClearBoard();
         }
-
+        
+        // Prevents the user from typing non-numbers in the text box for cutom number of steps.
         private void toolStripTextBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -104,6 +115,7 @@ namespace WindowsFormsApp1
             }
         }
 
+        // Makes a custom number of steps (in total, not per turmite).
         private void stepButton_Click(object sender, EventArgs e)
         {
             int input;
@@ -122,6 +134,7 @@ namespace WindowsFormsApp1
             }
         }
 
+        // Shows the setting form, and if any changes have been made clears the board, because any pixel can potentially have an undefined color
         private void settingsButton_Click(object sender, EventArgs e)
         {
             paused = true;
