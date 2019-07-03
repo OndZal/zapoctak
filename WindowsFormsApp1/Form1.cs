@@ -24,7 +24,7 @@ namespace WindowsFormsApp1
             g.Clear(Color.Black);
             Turmites = new TurmiteController((Bitmap)pictureBox1.Image);
             Turmites.Colors.Add(Color.FromArgb(255,0,0,0));
-            Turmites.Colors.Add(Color.FromArgb(255, 255, 0, 0));
+            Turmites.Colors.Add(Color.FromArgb(255, 255, 255, 255));
         }
 
         private void addButton_Click(object sender, EventArgs e)
