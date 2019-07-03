@@ -105,6 +105,7 @@ namespace WindowsFormsApp1
                     // a box for the state to be transitioned into
                     stateTable[state, color] = new NumericUpDown
                     {
+                        Maximum = states - 1,
                         Location = new System.Drawing.Point(127, 99 + (state * colors + color) * 26),
                         Name = "numericUpDown4",
                         Size = new System.Drawing.Size(72, 21),
@@ -116,6 +117,7 @@ namespace WindowsFormsApp1
                     // a box for the color to paint the tile(pixel)
                     colorTable[state, color] = new NumericUpDown
                     {
+                        Maximum = colors - 1,
                         Location = new System.Drawing.Point(198, 99 + (state * colors + color) * 26),
                         Name = "numericUpDown3",
                         Size = new System.Drawing.Size(82, 21),
@@ -186,6 +188,15 @@ namespace WindowsFormsApp1
                         turnTable[state, color].SelectedIndex  = int.Parse(values[3]);
                     }
                 }
+                // catces invalid, but parsable values - negative numbers and colors and states over their respective totals
+                catch (ArgumentOutOfRangeException)
+                {
+                    MessageBox.Show("ERROR - Invalid File Format");
+                    file.Close();
+                    toAdd = null;
+                    return;
+                }
+                // Cathes uparsable values and lines without proper delimiters.
                 catch (FormatException)
                 {
                     MessageBox.Show("ERROR - Invalid File Format");
