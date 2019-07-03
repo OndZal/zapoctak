@@ -191,7 +191,7 @@ namespace WindowsFormsApp1
                 // catces invalid, but parsable values - negative numbers and colors and states over their respective totals
                 catch (ArgumentOutOfRangeException)
                 {
-                    MessageBox.Show("ERROR - Invalid File Format");
+                    MessageBox.Show("ERROR - Invalid Value in File");
                     file.Close();
                     toAdd = null;
                     return;
