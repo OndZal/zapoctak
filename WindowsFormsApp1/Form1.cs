@@ -46,8 +46,8 @@ namespace WindowsFormsApp1
                 else
                 {
                     addDialog.toAdd.controller = Turmites;
-                    addDialog.toAdd.x = pictureBox1.Image.Width / 2;
-                    addDialog.toAdd.y = pictureBox1.Image.Height / 2;
+                    addDialog.toAdd.x = pictureBox1.Image.Width < addDialog.toAdd.x ? pictureBox1.Image.Width : addDialog.toAdd.x;
+                    addDialog.toAdd.y = pictureBox1.Image.Height < addDialog.toAdd.y ? pictureBox1.Image.Height : addDialog.toAdd.y;
                     Turmites.Turmites.Add(addDialog.toAdd);
                 }
             }
