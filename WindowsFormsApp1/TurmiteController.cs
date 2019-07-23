@@ -24,6 +24,8 @@ namespace WindowsFormsApp1
         }
         public void NextStep()
         {
+            if (iterator >= turmites.Count)
+                iterator = 0;
             if (turmites.Count > 0)
             {
                 turmites[iterator].Step();
