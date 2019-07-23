@@ -71,7 +71,7 @@
             this.pauseButton.Name = "pauseButton";
             this.pauseButton.Size = new System.Drawing.Size(42, 22);
             this.pauseButton.Text = "Pause";
-            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
+            this.pauseButton.Click += new System.EventHandler(this.PauseButton_Click);
             // 
             // playButton
             // 
@@ -82,7 +82,7 @@
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(33, 22);
             this.playButton.Text = "Play";
-            this.playButton.Click += new System.EventHandler(this.playButton_Click);
+            this.playButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
             // addButton
             // 
@@ -93,7 +93,7 @@
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(33, 22);
             this.addButton.Text = "Add";
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            this.addButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // clearButton
             // 
@@ -105,7 +105,7 @@
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(38, 22);
             this.clearButton.Text = "Clear";
-            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            this.clearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
             // pictureBox1
             // 
@@ -122,7 +122,7 @@
             // 
             this.timer1.Enabled = true;
             this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // settingsButton
             // 
@@ -134,7 +134,7 @@
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Size = new System.Drawing.Size(53, 22);
             this.settingsButton.Text = "Settings";
-            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
+            this.settingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
             // stepButton
             // 
@@ -146,7 +146,7 @@
             this.stepButton.Name = "stepButton";
             this.stepButton.Size = new System.Drawing.Size(39, 22);
             this.stepButton.Text = "Steps";
-            this.stepButton.Click += new System.EventHandler(this.stepButton_Click);
+            this.stepButton.Click += new System.EventHandler(this.StepButton_Click);
             // 
             // toolStripTextBox1
             // 
@@ -157,7 +157,7 @@
             this.toolStripTextBox1.Size = new System.Drawing.Size(40, 25);
             this.toolStripTextBox1.Text = "100";
             this.toolStripTextBox1.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolStripTextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox1_KeyPress);
+            this.toolStripTextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ToolStripTextBox1_KeyPress);
             // 
             // Form1
             // 

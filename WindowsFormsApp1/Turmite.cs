@@ -65,9 +65,9 @@ namespace WindowsFormsApp1
         // Performs a single step consisting, in order, of turning, repainting of the pixel it's standing on, moving and changing its states.
         public void Step()
         {
-            int colorIndex = controller.Colors.IndexOf(controller.bitmap.GetPixel(x, y));
+            int colorIndex = controller.colors.IndexOf(controller.bitmap.GetPixel(x, y));
             Turn(turnTable[state, colorIndex]);
-            controller.bitmap.SetPixel(x, y, controller.Colors[colorTable[state, colorIndex]]);
+            controller.bitmap.SetPixel(x, y, controller.colors[colorTable[state, colorIndex]]);
             //If the turmite walks off the bitmap, it appears on the other side symmetrically by the axis it has over- or under-flown in.
             for (int i = 0; i < stepTable[state, colorIndex]; i++)
             {

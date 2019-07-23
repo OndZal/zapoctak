@@ -31,7 +31,7 @@ namespace WindowsFormsApp1
         public Turmite toAdd = null;
 
         // Generates a table for a turmite according to numbers of colors and states.
-        protected void generateTableControls()
+        protected void GenerateTableControls()
         {
             //clearing previously generated controls
             foreach(var item in generatedLabels)
@@ -235,21 +235,21 @@ namespace WindowsFormsApp1
         }
         
         // Generates a new table without changing its size
-        private void generateTableButton_Click(object sender, EventArgs e)
+        private void GenerateTableButton_Click(object sender, EventArgs e)
         {
-            generateTableControls();
+            GenerateTableControls();
         }
 
         // A shared handlet for ValueChanged of both "Counter" controls; Generates a new table and disables creation and saving of nonsensical turmites
         private void Counter_ValueChanged(object sender, EventArgs e)
         {
-            generateTableControls();
+            GenerateTableControls();
             saveButton.Enabled = stateCounter.Value != 0 && colorCounter.Value != 0;
             OKButton.Enabled = stateCounter.Value != 0 && colorCounter.Value != 0;
         }
         
         // Writes data from controls to a user selected file
-        private void saveButton_Click(object sender, EventArgs e)
+        private void SaveButton_Click(object sender, EventArgs e)
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {

@@ -14,7 +14,7 @@ namespace WindowsFormsApp1
     public partial class SettingsForm : Form
     {
         // the colors the user has defined
-        public List<Color> Colors;
+        public List<Color> colors;
         
         // the buttons that visually represent the colors and their indices in the list
         protected List<IndexedButton> colorButtons = new List<IndexedButton>();
@@ -23,10 +23,10 @@ namespace WindowsFormsApp1
         public SettingsForm(List<Color> colors)
         {
             InitializeComponent();
-            Colors = colors;
-            for (int i = 0; i < Colors.Count; i++)
+            this.colors = colors;
+            for (int i = 0; i < this.colors.Count; i++)
             {
-                var newButton = new IndexedButton(i, Colors[i]);
+                var newButton = new IndexedButton(i, this.colors[i]);
                 colorButtons.Add(newButton);
                 Controls.Add(newButton);
                 newButton.Click += new EventHandler(this.ColorPick_Click);
@@ -42,27 +42,27 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
+        private void CancelButton_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();
         }
         
         // Saves the setting and signals for the board to be cleared because it potentially contains colors that are no longer valid.
-        private void clearButton_Click(object sender, EventArgs e)
+        private void ClearButton_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
-            Colors.Clear();
+            colors.Clear();
             foreach (var item in colorButtons)
             {
                 // This standardizes colors, so that it matches the format that the bitmap returns
-                Colors.Insert(item.index, Color.FromArgb(item.BackColor.ToArgb()));
+                colors.Insert(item.index, Color.FromArgb(item.BackColor.ToArgb()));
             }
             Close();
         }
 
         // Lets user pick a color and adds an indexedButton to hold the color.
-        private void addButton_Click(object sender, EventArgs e)
+        private void AddButton_Click(object sender, EventArgs e)
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -74,7 +74,7 @@ namespace WindowsFormsApp1
         }
 
         // Removes the last button and thus its' assigned color
-        private void removeButton_Click(object sender, EventArgs e)
+        private void RemoveButton_Click(object sender, EventArgs e)
         {
             if (colorButtons.Count > 2)
             {

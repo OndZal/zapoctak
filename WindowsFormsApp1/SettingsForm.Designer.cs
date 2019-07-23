@@ -54,7 +54,7 @@
             this.cancelButton.TabIndex = 1;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // clearButton
             // 
@@ -64,7 +64,7 @@
             this.clearButton.TabIndex = 2;
             this.clearButton.Text = "Save and Clear";
             this.clearButton.UseVisualStyleBackColor = true;
-            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            this.clearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
             // addButton
             // 
@@ -74,7 +74,7 @@
             this.addButton.TabIndex = 3;
             this.addButton.Text = "Add Color";
             this.addButton.UseVisualStyleBackColor = true;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            this.addButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // removeButton
             // 
@@ -84,7 +84,7 @@
             this.removeButton.TabIndex = 4;
             this.removeButton.Text = "Remove Color";
             this.removeButton.UseVisualStyleBackColor = true;
-            this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
+            this.removeButton.Click += new System.EventHandler(this.RemoveButton_Click);
             // 
             // SettingsForm
             // 

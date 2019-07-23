@@ -178,7 +178,7 @@
             this.generateTableButton.TabIndex = 22;
             this.generateTableButton.Text = "Reset";
             this.generateTableButton.UseVisualStyleBackColor = true;
-            this.generateTableButton.Click += new System.EventHandler(this.generateTableButton_Click);
+            this.generateTableButton.Click += new System.EventHandler(this.GenerateTableButton_Click);
             // 
             // label3
             // 
@@ -267,7 +267,7 @@
             this.saveButton.TabIndex = 31;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // AddForm
             // 

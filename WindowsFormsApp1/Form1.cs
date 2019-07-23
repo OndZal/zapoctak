@@ -19,7 +19,7 @@ namespace WindowsFormsApp1
         }
 
 
-        protected TurmiteController Turmites;
+        protected TurmiteController turmites;
 
         // Itializes board and sets some default values.
         private void Form1_Load(object sender, EventArgs e)
@@ -27,54 +27,54 @@ namespace WindowsFormsApp1
             pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             Graphics g = Graphics.FromImage(pictureBox1.Image);
             g.Clear(Color.Black);
-            Turmites = new TurmiteController((Bitmap)pictureBox1.Image);
-            Turmites.Colors.Add(Color.FromArgb(255,0,0,0));
-            Turmites.Colors.Add(Color.FromArgb(255, 255, 255, 255));
+            turmites = new TurmiteController((Bitmap)pictureBox1.Image);
+            turmites.colors.Add(Color.FromArgb(255,0,0,0));
+            turmites.colors.Add(Color.FromArgb(255, 255, 255, 255));
         }
 
         // Gets a turmite from an "Addform", checks whether it uses the same number of colors as is set and whether it is in the bounds of the board.
-        private void addButton_Click(object sender, EventArgs e)
+        private void AddButton_Click(object sender, EventArgs e)
         {
             paused = true;
             AddForm addDialog = new AddForm();
             addDialog.ShowDialog();
             if (addDialog.DialogResult == DialogResult.OK)
             {
-                if (addDialog.toAdd.stateTable.GetUpperBound(1) + 1 > Turmites.Colors.Count)
+                if (addDialog.toAdd.stateTable.GetUpperBound(1) + 1 > turmites.colors.Count)
                 {
                     MessageBox.Show("Not enough colors defined for selected turmite.");
                 }
                 else
-                if (addDialog.toAdd.stateTable.GetUpperBound(1) + 1 < Turmites.Colors.Count)
+                if (addDialog.toAdd.stateTable.GetUpperBound(1) + 1 < turmites.colors.Count)
                 {
                     MessageBox.Show("Selected turmite is unable to handle all defined colors.");
                 }
                 else
                 {
-                    addDialog.toAdd.controller = Turmites;
+                    addDialog.toAdd.controller = turmites;
                     addDialog.toAdd.x = pictureBox1.Image.Width < addDialog.toAdd.x ? pictureBox1.Image.Width : addDialog.toAdd.x;
                     addDialog.toAdd.y = pictureBox1.Image.Height < addDialog.toAdd.y ? pictureBox1.Image.Height : addDialog.toAdd.y;
-                    Turmites.Turmites.Add(addDialog.toAdd);
+                    turmites.turmites.Add(addDialog.toAdd);
                 }
             }
             addDialog.Dispose();
         }
 
-        bool paused = true;
+        private bool paused = true;
 
-        private void playButton_Click(object sender, EventArgs e)
+        private void PlayButton_Click(object sender, EventArgs e)
         {
-            if (Turmites.Turmites.Count != 0)
+            if (turmites.turmites.Count != 0)
                 paused = false;
         }
 
-        private void pauseButton_Click(object sender, EventArgs e)
+        private void PauseButton_Click(object sender, EventArgs e)
         {
             paused = true;
         }
 
         // Does 50 steps and 5 board redraws a millisecond, making the drawing reasonably fast.
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
             if (!paused)
             {
@@ -82,7 +82,7 @@ namespace WindowsFormsApp1
                 {
                     for (int j = 0; j < 5; j++)
                     {
-                        Turmites.NextStep();
+                        turmites.NextStep();
                     }
                     pictureBox1.Refresh();
                 }
@@ -93,21 +93,21 @@ namespace WindowsFormsApp1
         protected void ClearBoard()
         {
             pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            Turmites.bitmap = (Bitmap)pictureBox1.Image;
+            turmites.bitmap = (Bitmap)pictureBox1.Image;
             Graphics g = Graphics.FromImage(pictureBox1.Image);
             paused = true;
-            g.Clear(Turmites.Colors[0]);
-            Turmites.Turmites.Clear();
+            g.Clear(turmites.colors[0]);
+            turmites.turmites.Clear();
             pictureBox1.Refresh();
         }
 
-        private void clearButton_Click(object sender, EventArgs e)
+        private void ClearButton_Click(object sender, EventArgs e)
         {
             ClearBoard();
         }
         
         // Prevents the user from typing non-numbers in the text box for cutom number of steps.
-        private void toolStripTextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        private void ToolStripTextBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
@@ -116,7 +116,7 @@ namespace WindowsFormsApp1
         }
 
         // Makes a custom number of steps (in total, not per turmite).
-        private void stepButton_Click(object sender, EventArgs e)
+        private void StepButton_Click(object sender, EventArgs e)
         {
             int input;
             if (!int.TryParse(toolStripTextBox1.Text, out input))
@@ -128,17 +128,17 @@ namespace WindowsFormsApp1
             {
                 for (int i = 0; i < input; i++)
                 {
-                    Turmites.NextStep();
+                    turmites.NextStep();
                     pictureBox1.Refresh();
                 }
             }
         }
 
         // Shows the setting form, and if any changes have been made clears the board, because any pixel can potentially have an undefined color
-        private void settingsButton_Click(object sender, EventArgs e)
+        private void SettingsButton_Click(object sender, EventArgs e)
         {
             paused = true;
-            var settings = new SettingsForm(Turmites.Colors);
+            var settings = new SettingsForm(turmites.colors);
             if (settings.ShowDialog() == DialogResult.OK)
             {
                 ClearBoard();
